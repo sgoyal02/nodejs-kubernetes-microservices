@@ -1,0 +1,35 @@
+# dependencies
+node_modules/
+.pnpm-store/
+
+# builds
+dist/
+build/
+*.tsbuildinfo
+
+# env var
+.env
+.env.local
+.env.*.local
+
+# logs
+*.log
+npm-debug.log*
+pnpm-debug.log*
+
+# ide
+.vscode/*
+!.vscode/extensions.json
+.idea/
+
+# testing
+coverage/
+
+# kubernetes
+infra/k8s/**/*.local.yaml
+
+# docker
+*.pid
+
+# misc
+*.tmp
