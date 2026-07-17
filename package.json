@@ -4,6 +4,7 @@
   "description": "",
   "main": "index.js",
   "private": true,
+  "packageManager": "pnpm@11.13.1",
   "scripts": {
     "dev": "pnpm --parallel run dev",
     "build": "pnpm --parallel run build",
@@ -17,13 +18,6 @@
   "keywords": [],
   "author": "",
   "license": "ISC",
-  "devEngines": {
-    "packageManager": {
-      "name": "pnpm",
-      "version": "^11.10.0",
-      "onFail": "download"
-    }
-  },
   "type": "commonjs",
   "devDependencies": {
     "@eslint/js": "^10.0.1",

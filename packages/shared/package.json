@@ -5,10 +5,15 @@
   "main": "./index.ts",
   "types": "./index.ts",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "build": "tsc",
+    "dev": "tsc --watch"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
-  "type": "commonjs"
+  "type": "commonjs",
+  "dependencies": {
+    "ioredis": "^5.11.1",
+    "redis": "^6.1.0"
+  }
 }

@@ -6,8 +6,7 @@
   "scripts": {
     "dev": "tsx watch src/index.ts",
     "build": "tsc",
-    "start": "node dist/index.js",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "node dist/index.js"
   },
   "keywords": [],
   "author": "",
@@ -17,7 +16,6 @@
     "@nodejs-kubernetes-microservices/shared": "workspace:*",
     "dotenv": "^17.4.2",
     "express": "^5.2.1",
-    "ioredis": "^5.11.1",
     "uuid": "^14.0.1"
   },
   "devDependencies": {

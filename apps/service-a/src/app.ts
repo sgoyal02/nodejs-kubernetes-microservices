@@ -1,7 +1,9 @@
 import express from 'express';
-import { serviceARouter } from './service_a.route';
+import { globalRouter } from './router';
+import { errorHandler } from './middleware/errorHandler';
 
 export const app = express();
 
 app.use(express.json());
-app.use(serviceARouter);
+app.use('/api', globalRouter);
+app.use(errorHandler);

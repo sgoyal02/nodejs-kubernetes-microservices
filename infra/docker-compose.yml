@@ -1,0 +1,30 @@
+services:
+  redis:
+    image: redis:alpine
+    container_name: redis
+    ports:
+      - '6379:6379'
+    env_file:
+      - ./env/.env.redis
+    volumes:
+      - redis-data:/data
+
+  service-a:
+    build:
+      context: ..
+      dockerfile: apps/service-a/Dockerfile
+    ports:
+      - '3000:3000'
+    env_file:
+      - ./env/.env.service-a
+    depends_on:
+      - redis
+    volumes:
+      - ..:/app
+      - /app/node_modules
+      - /app/apps/service-a/node_modules
+      - /app/packages/shared/node_modules
+    command: pnpm --filter @nodejs-kubernetes-microservices/service-a dev
+
+volumes:
+  redis-data:
