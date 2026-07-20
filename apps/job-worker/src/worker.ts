@@ -1,13 +1,13 @@
-import { popFromQueue } from '@nodejs-kubernetes-microservices/shared/src';
+import { popFromQueue } from '@nodejs-kubernetes-microservices/shared';
+import { processJob } from './services/jobProcessor';
 
 export const startWorker = () => {
   console.log(`worker started- ${process.env.WORKER_NAME || 'default'}`);
   const processLoop = async () => {
     try {
       const jobId = await popFromQueue();
-
       if (jobId) {
-        //process job- to do
+        await processJob(jobId);
       }
     } catch (err) {
       console.error('worker err-', err);

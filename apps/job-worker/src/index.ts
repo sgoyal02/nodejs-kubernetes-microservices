@@ -1,6 +1,6 @@
 import dotenv from 'dotenv';
-import { connectRedis } from '@nodejs-kubernetes-microservices/shared/src';
 import { startWorker } from './worker';
+import { connectRedis } from '@nodejs-kubernetes-microservices/shared';
 
 dotenv.config();
 
