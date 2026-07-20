@@ -9,22 +9,34 @@ services:
     volumes:
       - redis-data:/data
 
-  service-a:
+  api-gateway:
     build:
       context: ..
-      dockerfile: apps/service-a/Dockerfile
+      dockerfile: apps/api-gateway/Dockerfile
     ports:
       - '3000:3000'
     env_file:
-      - ./env/.env.service-a
+      - ./env/.env.api-gateway
     depends_on:
       - redis
     volumes:
       - ..:/app
       - /app/node_modules
-      - /app/apps/service-a/node_modules
+      - /app/apps/api-gateway/node_modules
       - /app/packages/shared/node_modules
-    command: pnpm --filter @nodejs-kubernetes-microservices/service-a dev
+    command: pnpm --filter @nodejs-kubernetes-microservices/api-gateway dev
+
+  job-worker:
+    build:
+      context: ..
+      dockerfile: apps/job-worker/Dockerfile
+    env_file:
+      - ./env/.env.job-worker
+    depends_on:
+      - redis
+    volumes:
+      - ..:/app
+    command: pnpm --filter @nodejs-kubernetes-microservices/job-worker dev
 
 volumes:
   redis-data:
