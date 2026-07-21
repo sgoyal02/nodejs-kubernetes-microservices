@@ -12,6 +12,7 @@ export const calPrimes = (maxNum: number): number[] => {
     }
     if (isPrime) primes.push(i);
   }
+  console.log('calPrime worker: ', primes);
   return primes;
 };
 

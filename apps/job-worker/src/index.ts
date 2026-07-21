@@ -1,11 +1,15 @@
-import dotenv from 'dotenv';
+import { connectRedis } from '../../../packages/shared/src';
+import { app } from './app';
+import { env } from './config/env';
 import { startWorker } from './worker';
-import { connectRedis } from '@nodejs-kubernetes-microservices/shared';
-
-dotenv.config();
 
 const start = async () => {
   await connectRedis();
+  console.log('worker redis connected');
+
+  app.listen(env.port, () => {
+    console.log(`job worker running on port ${env.port}`);
+  });
   startWorker();
 };
 

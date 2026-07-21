@@ -1,5 +1,8 @@
-import { getJob, updateJob } from '@nodejs-kubernetes-microservices/shared';
+import { getJob } from '@nodejs-kubernetes-microservices/shared/src';
 import { calPrimes, createSortArr, hashBcrypt } from '../utils/cpuJobs';
+import { updateJob } from '@nodejs-kubernetes-microservices/shared/src';
+import { jobErrorsTotal, jobProcessingTimeSeconds, jobsProcessedTotal } from '../metrics/registry';
+import { redis } from '@nodejs-kubernetes-microservices/shared/src';
 
 export const processJob = async (jobId: string) => {
   const startTime = Date.now();
@@ -7,6 +10,7 @@ export const processJob = async (jobId: string) => {
   if (!job) return;
   try {
     await updateJob(jobId, { status: 'processing' });
+    console.log('woker process job: ', job);
     let result: unknown;
     switch (job.type) {
       case 'calculate-primes':
@@ -23,18 +27,22 @@ export const processJob = async (jobId: string) => {
     }
 
     const processTimeMs = Date.now() - startTime;
+    console.log('process worker job modify complete time: ', processTimeMs, result);
     await updateJob(jobId, {
       status: 'completed',
       result,
       processTime: processTimeMs,
     });
-    console.log(`job complete tym-${processTimeMs} ms`);
+    jobsProcessedTotal.inc({ job_type: job.type });
+    jobProcessingTimeSeconds.observe({ job_type: job.type }, processTimeMs / 1000);
+    await redis.incr('stats:jobs:completed');
   } catch (err: unknown) {
     const errMsg = err instanceof Error ? err.message : 'job process failed.';
     await updateJob(jobId, {
       status: 'failed',
       error: errMsg,
     });
+    jobErrorsTotal.inc({ job_type: job.type });
     console.error(`job process failed for ${jobId}: `, errMsg);
   }
 };
