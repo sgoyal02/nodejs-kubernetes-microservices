@@ -1,0 +1,15 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: job-worker
+  namespace: nodejs-kubernetes-microservices
+  labels:
+    app: job-worker
+spec:
+  selector:
+    app: job-worker
+  ports:
+    - name: http
+      port: 3001
+      targetPort: 3001
+  type: ClusterIP

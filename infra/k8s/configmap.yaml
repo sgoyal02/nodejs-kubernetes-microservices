@@ -1,0 +1,9 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: app-config
+  namespace: nodejs-kubernetes-microservices
+data:
+  REDIS_HOST: 'redis'
+  REDIS_PORT: '6379'
+  NODE_ENV: 'production'
