@@ -23,3 +23,9 @@ export interface Job extends JobData {
   error?: string;
   processTime?: number;
 }
+
+export interface StatsSummary {
+  totalSubmit: number;
+  totalComplete: number;
+  currQueueLength: number;
+}
