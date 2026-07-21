@@ -1,5 +1,5 @@
-import { ApiResponse } from '@nodejs-kubernetes-microservices/shared/src';
 import { Response } from 'express';
+import { ApiResponse } from '@nodejs-kubernetes-microservices/shared/src';
 
 export const sendSuccess = <T>(res: Response, data: T, msg = 'Success', statusCode = 200): void => {
   const responseBody: ApiResponse<T> = {

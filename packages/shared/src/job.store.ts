@@ -1,8 +1,10 @@
 import { JOB_PREFIX } from './constants/jobs.constants.js';
+import { pushToQueue } from './queue.js';
 import { redis } from './redis';
 import { Job, JobStatus, JobType } from './types';
 
 export const submitJob = async (job: Job): Promise<void> => {
+  console.log('inside submit job: ');
   const key = `${JOB_PREFIX}${job.id}`;
   await redis.hset(key, {
     id: job.id,
@@ -11,12 +13,18 @@ export const submitJob = async (job: Job): Promise<void> => {
     status: job.status,
     createdAt: job.createdAt,
   });
+
+  const data = await redis.hgetall(key);
+  console.log('getting job new: ', data);
+  await pushToQueue(job.id);
+  await redis.incr('stats:jobs:submitted'); //for stats-service
 };
 
 export const getJob = async (jobId: string): Promise<Job | null> => {
   const key = `${JOB_PREFIX}${jobId}`;
   const data = await redis.hgetall(key);
   if (!data || Object.keys(data).length === 0) return null;
+  console.log('getJob shared job find: ', data);
 
   return {
     id: data.id,
@@ -46,6 +54,8 @@ export const updateJob = async (jobId: string, updates: Partial<Job>): Promise<v
 
   if (updates.result !== undefined) data.result = JSON.stringify(updates.result);
   if (updates.payload !== undefined) data.payload = JSON.stringify(updates.payload);
+
+  console.log('updateJob shared job res data: ', data, key);
 
   await redis.hset(key, data);
 };
