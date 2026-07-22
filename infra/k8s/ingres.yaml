@@ -3,15 +3,13 @@ kind: Ingress
 metadata:
   name: nodejs-kubernetes-microservices-ingress
   namespace: nodejs-kubernetes-microservices
-  annotations:
-    nginx.ingress.kubernetes.io/rewrite-target: /$2
 spec:
   ingressClassName: nginx
   rules:
     - http:
         paths:
-          - path: /(submit|status)(.*)
-            pathType: ImplementationSpecific
+          - path: /api/jobs
+            pathType: Prefix
             backend:
               service:
                 name: api-gateway

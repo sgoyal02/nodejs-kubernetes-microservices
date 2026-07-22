@@ -1,0 +1,37 @@
+apiVersion: monitoring.coreos.com/v1
+kind: ServiceMonitor
+metadata:
+  name: job-worker-monitor
+  namespace: monitoring
+  labels:
+    release: monitoring
+spec:
+  namespaceSelector:
+    matchNames:
+      - nodejs-kubernetes-microservices
+  selector:
+    matchLabels:
+      app: job-worker
+  endpoints:
+    - port: http
+      path: /metrics
+      interval: 10s
+---
+apiVersion: monitoring.coreos.com/v1
+kind: ServiceMonitor
+metadata:
+  name: stats-service-monitor
+  namespace: monitoring
+  labels:
+    release: monitoring
+spec:
+  namespaceSelector:
+    matchNames:
+      - nodejs-kubernetes-microservices
+  selector:
+    matchLabels:
+      app: stats-service
+  endpoints:
+    - port: http
+      path: /api/metrics
+      interval: 10s
