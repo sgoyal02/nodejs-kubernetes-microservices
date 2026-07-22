@@ -1,4 +1,4 @@
-import { connectRedis } from '../../../packages/shared/src';
+import { connectRedis } from '@nodejs-kubernetes-microservices/shared/src';
 import { app } from './app';
 import { env } from './config/env';
 import { startWorker } from './worker';
