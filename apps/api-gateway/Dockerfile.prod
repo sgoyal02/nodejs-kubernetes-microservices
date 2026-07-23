@@ -1,0 +1,23 @@
+FROM node:22-alpine AS builder
+WORKDIR /app
+RUN corepack enable
+
+COPY package.json pnpm-workspace.yaml pnpm-lock.yaml* ./
+COPY packages/shared ./packages/shared
+COPY apps/api-gateway ./apps/api-gateway
+
+RUN pnpm install --frozen-lockfile
+
+# prod step
+FROM node:22-alpine
+RUN corepack enable && \
+    addgroup -g 1001 -S nodejs && \
+    adduser -S -u 1001 nodejs
+
+WORKDIR /app
+COPY --from=builder /app ./
+USER nodejs
+WORKDIR /app/apps/api-gateway
+EXPOSE 3000
+
+CMD ["pnpm", "start"]

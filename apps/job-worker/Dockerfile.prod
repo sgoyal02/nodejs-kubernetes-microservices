@@ -1,0 +1,24 @@
+FROM node:22-alpine AS builder
+WORKDIR /app
+RUN corepack enable
+
+COPY package.json pnpm-workspace.yaml pnpm-lock.yaml* tsconfig.base.json ./
+COPY packages/shared ./packages/shared
+COPY apps/job-worker ./apps/job-worker
+
+RUN pnpm install --frozen-lockfile
+RUN cd packages/shared && pnpm build
+
+# prodstage
+FROM node:22-alpine
+RUN corepack enable && \
+    addgroup -g 1001 -S nodejs && \
+    adduser -S -u 1001 nodejs
+
+WORKDIR /app
+COPY --from=builder /app ./
+
+USER nodejs
+WORKDIR /app/apps/job-worker
+EXPOSE 3001
+CMD ["pnpm", "start"]
