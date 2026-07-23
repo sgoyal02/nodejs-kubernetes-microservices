@@ -1,8 +1,8 @@
-import { getJob } from '@nodejs-kubernetes-microservices/shared/src';
+import { getJob } from '@nodejs-kubernetes-microservices/shared';
 import { calPrimes, createSortArr, hashBcrypt } from '../utils/cpuJobs';
-import { updateJob } from '@nodejs-kubernetes-microservices/shared/src';
+import { updateJob } from '@nodejs-kubernetes-microservices/shared';
 import { jobErrorsTotal, jobProcessingTimeSeconds, jobsProcessedTotal } from '../metrics/registry';
-import { redis } from '@nodejs-kubernetes-microservices/shared/src';
+import { redis } from '@nodejs-kubernetes-microservices/shared';
 
 export const processJob = async (jobId: string) => {
   const startTime = Date.now();

@@ -1,6 +1,6 @@
-import { QUEUE_NAME, redis } from '@nodejs-kubernetes-microservices/shared/src';
+import { QUEUE_NAME, redis } from '@nodejs-kubernetes-microservices/shared';
 import { queueLength, totalJobsCompleted, totalJobsSubmitted } from '../metrics/registry';
-import { StatsSummary } from '../../../../../packages/shared/src';
+import { StatsSummary } from '../../../../../packages/shared';
 
 export class StatsService {
   async getStatsSummary(): Promise<StatsSummary> {

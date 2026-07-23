@@ -1,5 +1,5 @@
 import { v4 } from 'uuid';
-import { getJob, submitJob, Job, JobType } from '@nodejs-kubernetes-microservices/shared/src';
+import { getJob, submitJob, Job, JobType } from '@nodejs-kubernetes-microservices/shared';
 
 export class JobService {
   async createJob(type: JobType, payload?: Record<string, unknown>): Promise<Job> {

@@ -1,4 +1,4 @@
-import { popFromQueue } from '@nodejs-kubernetes-microservices/shared/src';
+import { popFromQueue } from '@nodejs-kubernetes-microservices/shared';
 import { processJob } from '../services/jobProcessor';
 
 export const startWorker = () => {
