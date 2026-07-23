@@ -40,7 +40,7 @@ export const getJob = async (jobId: string): Promise<Job | null> => {
 };
 
 export const updateJob = async (jobId: string, updates: Partial<Job>): Promise<void> => {
-  const key = `job:${jobId}`;
+  const key = `${JOB_PREFIX}${jobId}`;
   //   const data: Record<string, string | number | undefined> = { ...updates }; //err type
   const data: Record<string, string | number> = {};
 

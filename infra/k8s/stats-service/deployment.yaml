@@ -17,7 +17,7 @@ spec:
     spec:
       containers:
         - name: stats-service
-          image: your-docker-userName/stats-service:latest
+          image: stats-service:latest
           imagePullPolicy: Never
           ports:
             - name: http

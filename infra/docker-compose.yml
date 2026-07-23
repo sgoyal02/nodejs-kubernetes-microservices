@@ -25,7 +25,7 @@ services:
       - /app/apps/api-gateway/node_modules
       - /app/packages/shared/node_modules
       - /app/packages/shared/dist
-    command: sh -c "pnpm --filter @nodejs-kubernetes-microservices/shared build && pnpm --filter @nodejs-kubernetes-microservices/api-gateway dev"
+    command: sh -c "cd /app && pnpm --filter @nodejs-kubernetes-microservices/shared build && pnpm --filter @nodejs-kubernetes-microservices/api-gateway dev"
 
   job-worker:
     build:
@@ -43,7 +43,7 @@ services:
       - /app/apps/job-worker/node_modules
       - /app/packages/shared/node_modules
       - /app/packages/shared/dist #build of shared
-    command: sh -c "pnpm --filter @nodejs-kubernetes-microservices/shared build && pnpm --filter @nodejs-kubernetes-microservices/job-worker dev"
+    command: sh -c "cd /app && pnpm --filter @nodejs-kubernetes-microservices/shared build && pnpm --filter @nodejs-kubernetes-microservices/job-worker dev"
 
   stats-service:
     build:
@@ -61,7 +61,7 @@ services:
       - /app/apps/stats-service/node_modules
       - /app/packages/shared/node_modules
       - /app/packages/shared/dist
-    command: sh -c "pnpm --filter @nodejs-kubernetes-microservices/shared build && pnpm --filter @nodejs-kubernetes-microservices/stats-service dev"
+    command: sh -c "cd /app && pnpm --filter @nodejs-kubernetes-microservices/shared build && pnpm --filter @nodejs-kubernetes-microservices/stats-service dev"
 
 volumes:
   redis-data:

@@ -17,7 +17,7 @@ spec:
     spec:
       containers:
         - name: job-worker
-          image: your-docker-user/job-worker:latest
+          image: job-worker:latest
           imagePullPolicy: Never
           ports:
             - name: http

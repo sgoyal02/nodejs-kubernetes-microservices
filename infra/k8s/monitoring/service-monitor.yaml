@@ -14,7 +14,7 @@ spec:
       app: job-worker
   endpoints:
     - port: http
-      path: /metrics
+      path: /api/worker/metrics
       interval: 10s
 ---
 apiVersion: monitoring.coreos.com/v1
