@@ -5,7 +5,6 @@ import { startWorker } from './worker';
 
 const start = async () => {
   await connectRedis();
-  console.log('worker redis connected');
 
   app.listen(env.port, () => {
     console.log(`job worker running on port ${env.port}`);

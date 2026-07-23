@@ -10,7 +10,6 @@ export const processJob = async (jobId: string) => {
   if (!job) return;
   try {
     await updateJob(jobId, { status: 'processing' });
-    console.log('woker process job: ', job);
     let result: unknown;
     switch (job.type) {
       case 'calculate-primes':
@@ -27,7 +26,6 @@ export const processJob = async (jobId: string) => {
     }
 
     const processTimeMs = Date.now() - startTime;
-    console.log('process worker job modify complete time: ', processTimeMs, result);
     await updateJob(jobId, {
       status: 'completed',
       result,

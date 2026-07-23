@@ -1,6 +1,6 @@
 import { beforeEach, describe, expect, it, vi } from 'vitest';
 import type { Request, Response } from 'express';
-import type { Job } from '@nodejs-kubernetes-microservices/shared/src';
+import type { Job } from '@nodejs-kubernetes-microservices/shared';
 
 //mocking--
 const { mockedCreateJob, mockedGetJobStatus, mockedJobService } = vi.hoisted(() => {

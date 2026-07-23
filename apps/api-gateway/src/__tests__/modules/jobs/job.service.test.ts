@@ -1,11 +1,11 @@
 import { beforeEach, describe, expect, it, vi } from 'vitest';
 import { JobService } from '../../../modules/jobs/job.service';
-import type { Job } from '@nodejs-kubernetes-microservices/shared/src';
-import { getJob, submitJob } from '@nodejs-kubernetes-microservices/shared/src';
+import type { Job } from '@nodejs-kubernetes-microservices/shared';
+import { getJob, submitJob } from '@nodejs-kubernetes-microservices/shared';
 import { v4 } from 'uuid';
 
 //mocks--
-vi.mock('@nodejs-kubernetes-microservices/shared/src', () => ({
+vi.mock('@nodejs-kubernetes-microservices/shared', () => ({
   submitJob: vi.fn(),
   getJob: vi.fn(),
 }));
